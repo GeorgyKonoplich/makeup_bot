@@ -10,7 +10,7 @@ import argparse
 import tensorflow as tf
 
 tf.set_random_seed(19)
-from model import cyclegan, cyclegan1
+from model import PairedCycleGAN, CycleGAN
 from bot_utils import *
 
 from common.cache.service import set_data, get_data
@@ -24,19 +24,17 @@ parser.add_argument('--ngf', dest='ngf', type=int, default=64, help='# of gen fi
 parser.add_argument('--ndf', dest='ndf', type=int, default=64, help='# of discri filters in first conv layer')
 parser.add_argument('--input_nc', dest='input_nc', type=int, default=3, help='# of input image channels')
 parser.add_argument('--output_nc', dest='output_nc', type=int, default=3, help='# of output image channels')
-parser.add_argument('--use_resnet', dest='use_resnet', type=bool, default=True,
-                    help='generation network using reidule block')
 
 
 args = parser.parse_args()
 
 model_graph = tf.Graph()
 with model_graph.as_default():
-    model = cyclegan1('', args)
+    model = CycleGAN('', args)
 
 adv_graph = tf.Graph()
 with adv_graph.as_default():
-    model_eye = cyclegan('eyeeyeeye', args)
+    model_eye = PairedCycleGAN('eyeeyeeye', args)
 
 adv_sess = tf.Session(graph=adv_graph)
 sess = tf.Session(graph=model_graph)
@@ -174,6 +172,7 @@ def echo_message(message):
             bot.send_photo(cid, photo=open(result_image_path, 'rb'))
             #except Exception:
             #    bot.send_photo(cid, photo=open(path_to_image, 'rb'))
+
 
 # Start flask server
 app.run(host=WEBHOOK_LISTEN,

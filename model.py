@@ -5,21 +5,16 @@ from module import *
 from utils import *
 
 
-class cyclegan(object):
+class PairedCycleGAN(object):
     def __init__(self, prefix, args):
         self.sess = None
         self.prefix = prefix
-        self.batch_size = args.batch_size
         self.image_size = args.fine_size
         self.input_c_dim = args.input_nc
         self.output_c_dim = args.output_nc
 
         self.discriminator = discriminator
-        if args.use_resnet:
-            self.generator = generator_drnet
-        else:
-            self.generator = generator_unet
-
+        self.generator = generator_drnet
         self.generator_styled = generator_drnet_styled
 
         OPTIONS = namedtuple('OPTIONS', 'batch_size image_size \
@@ -56,20 +51,17 @@ class cyclegan(object):
         new_image = np.clip((fake_delta_resize / 127.5 - 1) * (intensity / 100.0) + (img_orig / 127.5 - 1), -1, 1)
         return (inverse_transform(new_image) * 255).astype(np.uint8)
 
-class cyclegan1(object):
+
+class CycleGAN(object):
     def __init__(self, prefix, args):
         self.sess = None
         self.prefix = prefix
-        self.batch_size = args.batch_size
         self.image_size = args.fine_size
         self.input_c_dim = args.input_nc
         self.output_c_dim = args.output_nc
 
         self.discriminator = discriminator
-        if args.use_resnet:
-            self.generator = generator_drnet
-        else:
-            self.generator = generator_unet
+        self.generator = generator_drnet
 
         OPTIONS = namedtuple('OPTIONS', 'batch_size image_size \
                               gf_dim df_dim output_c_dim is_training')

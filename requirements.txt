@@ -1,5 +1,8 @@
-tensorflow-gpu
+tensorflow
 numpy
 scipy
 pillow
 imageio
+pyTelegramBotAPI
+dlib
+
