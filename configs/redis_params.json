@@ -1,0 +1,6 @@
+{
+  "host": "makeup-pp.x4nirw.0001.use1.cache.amazonaws.com",
+  "port": 6379,
+  "db": 0,
+  "default_ttl_in_days": 3
+}

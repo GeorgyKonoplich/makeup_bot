@@ -1,0 +1,14 @@
+__pycache__
+.idea/*
+logs/*
+checkpoint/*
+datasets/*
+test/*
+sample/*
+test*
+mouth*
+.ipynb*
+0c09*
+.pytest*
+/bots_images/
+
